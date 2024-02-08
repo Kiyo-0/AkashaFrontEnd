@@ -1,0 +1,14 @@
+img {
+    width: 50px;
+    height: 50px;
+}
+
+button{
+    background: transparent;
+    border : none;
+}
+
+button:hover{
+    background: transparent;
+    border: 2px solid white !important;
+}

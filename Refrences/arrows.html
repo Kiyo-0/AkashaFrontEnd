@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Arrow Drawing</title>
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+    // Get the canvas element and its context
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Array to store shape properties
+    const shapes = [];
+
+    // Variables to store mouse coordinates
+    let startX, startY, endX, endY;
+
+    // Function to draw all shapes in the array
+    function drawShapes() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw each shape in the array
+        shapes.forEach(shape => {
+            switch (shape.type) {
+                case 'leftArrow':
+                    drawLeftArrow(shape.startX, shape.startY, shape.endX, shape.endY);
+                    break;
+                case 'rightArrow':
+                    drawRightArrow(shape.startX, shape.startY, shape.endX, shape.endY);
+                    break;
+            }
+        });
+    }
+
+    // Function to draw a left arrow
+    function drawLeftArrow(x1, y1, x2, y2) {
+        const headLength = 10; // Length of the arrow head
+        const angle = Math.atan2(y2 - y1, x2 - x1); // Angle of the line
+
+        // Draw the main line of the arrow
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        // Draw the arrow head
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2 - headLength * Math.cos(angle - Math.PI / 6), y2 - headLength * Math.sin(angle - Math.PI / 6));
+        ctx.lineTo(x2 - headLength * Math.cos(angle + Math.PI / 6), y2 - headLength * Math.sin(angle + Math.PI / 6));
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    // Function to draw a right arrow
+    function drawRightArrow(x1, y1, x2, y2) {
+        const headLength = 10; // Length of the arrow head
+        const angle = Math.atan2(y2 - y1, x2 - x1); // Angle of the line
+
+        // Draw the main line of the arrow
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        // Draw the arrow head
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2 - headLength * Math.cos(angle + Math.PI / 6), y2 - headLength * Math.sin(angle + Math.PI / 6));
+        ctx.lineTo(x2 - headLength * Math.cos(angle - Math.PI / 6), y2 - headLength * Math.sin(angle - Math.PI / 6));
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    // Function to handle mouse move
+    function handleMouseMove(event) {
+        if (startX !== undefined && startY !== undefined) {
+            drawPreviewShape(startX, startY, event.offsetX, event.offsetY);
+        }
+    }
+
+    // Function to handle mouse down
+    function handleMouseDown(event) {
+        startX = event.offsetX;
+        startY = event.offsetY;
+        canvas.addEventListener('mousemove', handleMouseMove);
+    }
+
+    // Function to handle mouse up
+    function handleMouseUp(event) {
+        endX = event.offsetX;
+        endY = event.offsetY;
+
+        // Add the shape to the array based on type
+        shapes.push({ type: 'leftArrow', startX: startX, startY: startY, endX: endX, endY: endY });
+
+        // Redraw all shapes
+        drawShapes();
+
+        // Remove mousemove event listener
+        canvas.removeEventListener('mousemove', handleMouseMove);
+    }
+
+    // Function to draw a preview shape
+    function drawPreviewShape(x1, y1, x2, y2) {
+        // Clear previous drawings
+        drawShapes();
+
+        // Draw preview shape (in this case, a left arrow)
+        drawLeftArrow(x1, y1, x2, y2);
+
+    }
+
+    // Add event listeners
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Drawing</title>
+<style>
+    #drawingCanvas {
+        border: 1px solid #000;
+    }
+</style>
+</head>
+<body>
+<canvas id="drawingCanvas" width="500" height="500"></canvas>
+
+<script>
+    // Get the canvas element
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set initial drawing properties
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+
+    // Function to handle mouse movements
+    function handleMouseMove(event) {
+        if (event.buttons !== 1) return; // Only draw while left mouse button is pressed
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke();
+    }
+
+    // Function to handle mouse down
+    function handleMouseDown(event) {
+        ctx.beginPath();
+        ctx.moveTo(event.offsetX, event.offsetY);
+        canvas.addEventListener('mousemove', handleMouseMove);
+    }
+
+    // Function to handle mouse up
+    function handleMouseUp() {
+        canvas.removeEventListener('mousemove', handleMouseMove);
+    }
+
+    // Add event listeners
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+#sidebar,#FilesTab,#Stylestab,#ComponentsTab,#UtilityTab,#fileslink,#styleslink,#componentslink,#utilitylink,#settingslink,#profilelink{
+    transition: width 200ms linear;
+}
+#select  .nav-link{
+    font-size: 0.7rem !important;
+}
+
+.nav-link{
+    font-size: 1.5rem;
+}
+
+#items,#attr,#file{
+    height: 90vh !important;
+}
+
+.fileicon{
+    width: 20px;
+    height: 20px;
+}
+
+#Files{
+    height: 70vh;
+}
+
+li{
+    cursor: pointer;
+}

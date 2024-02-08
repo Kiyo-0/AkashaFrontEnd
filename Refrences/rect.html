@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Rectangle with Preview</title>
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+    // Get the canvas element and its context
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Array to store drawn rectangles
+    const rectangles = [];
+
+    // Variables to store initial and final mouse coordinates
+    let startX, startY, endX, endY;
+
+    // Function to draw all rectangles in the array
+    function drawRectangles() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw each rectangle in the array
+        rectangles.forEach(rect => {
+            ctx.beginPath();
+            let r = ctx.rect(rect.x, rect.y, rect.width, rect.height);
+            
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+        });
+    }
+
+    // Function to draw a preview rectangle
+    function drawPreviewRectangle(x1, y1, x2, y2) {
+        const width = x2 - x1;
+        const height = y2 - y1;
+
+        // Clear previous drawings
+        drawRectangles();
+
+        // Draw preview rectangle
+        ctx.beginPath();
+        ctx.rect(x1, y1, width, height);
+        ctx.strokeStyle = 'gray';
+        ctx.stroke();
+    }
+
+    // Function to handle mouse move
+    function handleMouseMove(event) {
+        if (startX !== undefined && startY !== undefined) {
+            drawPreviewRectangle(startX, startY, event.offsetX, event.offsetY);
+        }
+    }
+
+    // Function to handle mouse down
+    function handleMouseDown(event) {
+        startX = event.offsetX;
+        startY = event.offsetY;
+        canvas.addEventListener('mousemove', handleMouseMove);
+    }
+
+    // Function to handle mouse up
+    function handleMouseUp(event) {
+        endX = event.offsetX;
+        endY = event.offsetY;
+
+        // Calculate rectangle width and height
+        const width = endX - startX;
+        const height = endY - startY;
+
+        // Add the rectangle to the array
+        rectangles.push({ x: startX, y: startY, width: width, height: height });
+
+        // Redraw all rectangles
+        drawRectangles();
+
+        // Remove mousemove event listener
+        canvas.removeEventListener('mousemove', handleMouseMove);
+    }
+
+    // Add event listeners
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load HTML into Div</title>
+    <link rel="stylesheet" href="/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/css/bootstrap.css">
+</head>
+
+<body>
+
+    <div id="myDiv"></div>
+    <button id="load" type="button">Load</button>
+    <script>
+        function loadHTMLIntoDiv() {
+            fetch('tobeloaded.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('myDiv').innerHTML = data;
+                })
+            .catch(error => console.error('Error loading HTML file:', error));
+
+            fetch('tobeloaded.js')
+                .then(response => response.text())
+                .then(data => {
+                    const myDiv = document.getElementById('myDiv');
+                    const scriptElement = document.createElement('script');
+                    scriptElement.innerHTML = data;
+                    myDiv.appendChild(scriptElement);
+                })
+            .catch(error => console.error('Error loading HTML file:', error));
+        }
+
+        document.getElementById("load").addEventListener("click",loadHTMLIntoDiv)
+    </script>
+
+</body>
+
+</html>
