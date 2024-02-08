@@ -59,6 +59,37 @@ function loadHTMLIntoDiv() {
     }
 
     loadFile()
+
+    function loadAttr(){
+        fetch("attributes/attributes.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('treeAndAttr').innerHTML = data;
+            })
+        .catch(error => console.error('Error loading HTML file:', error));
+
+        fetch('attributes/attributes.css')
+            .then(response => response.text())
+            .then(data => {
+                const myDiv = document.getElementById('treeAndAttr');
+                const scriptElement = document.createElement('style');
+                scriptElement.innerHTML = data;
+                myDiv.appendChild(scriptElement);
+            })
+        .catch(error => console.error('Error loading HTML file:', error));
+
+        fetch('attributes/attributes.js')
+            .then(response => response.text())
+            .then(data => {
+                const myDiv = document.getElementById('treeAndAttr');
+                const scriptElement = document.createElement('script');
+                scriptElement.innerHTML = data;
+                myDiv.appendChild(scriptElement);
+            })
+        .catch(error => console.error('Error loading HTML file:', error));
+    }
+
+    loadAttr()
 }
 
 window.onload = loadHTMLIntoDiv

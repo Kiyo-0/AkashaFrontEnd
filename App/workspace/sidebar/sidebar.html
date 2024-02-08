@@ -1,15 +1,15 @@
 <div id="select" class="mt-1">
     <ul id="nav" class="nav nav-tabs flex-lg-row flex-column fw-bold m-0">
-        <li class="nav-item"><a href="#FilesTab" target="_self" class="nav-link text-success active" data-bs-toggle="tab" id = "fileslink">Files</a></li>
+        <li class="nav-item"><a href="#FilesTab" target="_self" class="nav-link text-success" data-bs-toggle="tab" id = "fileslink">Files</a></li>
         <li class="nav-item"><a href="#Stylestab" class="nav-link text-success" data-bs-toggle="tab" id = "styleslink">Styles</a></li>
         <li class="nav-item"><a href="#ComponentsTab" class="nav-link text-success" data-bs-toggle="tab" id = "componentslink">Components</a></li>
-        <li class="nav-item"><a href="#UtilityTab" class="nav-link text-success" data-bs-toggle="tab" id = "utilitylink">Utilty</a></li>
+        <li class="nav-item"><a href="#UtilityTab" class="nav-link text-success active" data-bs-toggle="tab" id = "utilitylink">Utilty</a></li>
         <li><button class="btn" id="arrow" onclick="changeBar()"><img id = "arrowsvg" src="/Refrences/leftarrow.svg" class="fileicon" alt=""></button></li>
     </ul>
 </div>
 
 <div class="tab-content text-light">
-    <div class="tab-pane active" id="FilesTab">
+    <div class="tab-pane" id="FilesTab">
         <div id="Files" class="list-group list-group-flush">
             <div class="list-group-item bg-dark text-light border-0"><a href = "#" class="btn btn-dark d-flex w-100 justify-content-start align-content-start"><img src="/Refrences/file.svg" class = "fileicon me-2" alt=""> File1</a></div>
             <div class="list-group-item bg-dark text-light border-0"><a href = "#" class="btn btn-dark d-flex w-100 justify-content-start align-content-start"><img src="/Refrences/file.svg" class = "fileicon me-2" alt=""> File2</a></div>
@@ -42,7 +42,7 @@
 </div>
 
 <div class="tab-content text-light">
-    <div class="tab-pane" id="UtilityTab">
+    <div class="tab-pane active" id="UtilityTab">
         <div id="Files" class="list-group list-group-flush">
             <div class="list-group-item bg-dark text-light border-0"><button id="square" onclick="square()" class="btn btn-dark d-flex justify-content-start align-content-start"><img src="/Refrences/square.svg" class="fileicon" alt=""></button></div>
             <div class="list-group-item bg-dark text-light border-0"><button id="circle" onclick="circle()" class="btn btn-dark d-flex justify-content-start align-content-start"><img src="/Refrences/circle.svg" class="fileicon" alt=""></button>
@@ -54,4 +54,4 @@
 <div class="m-0">
     <div class="list-group-item bg-dark text-light border-0"><a href = "#" class="btn btn-dark d-flex w-100 justify-content-start align-content-start" id = "settingslink"><img src="/Refrences/settings.svg" class = "fileicon me-2" alt="">Settings</a></div>
     <div class="list-group-item bg-dark text-light border-0"><a href = "#" class="btn btn-dark d-flex w-100 justify-content-start align-content-start" id = "profilelink"><img src="/Refrences/profile.svg" class = "fileicon me-2" alt="">Profile</a></div>
-</div
+</div>

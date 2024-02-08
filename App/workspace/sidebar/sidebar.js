@@ -96,4 +96,6 @@ function changeBar(){
 
 function square(){
     document.getElementById("square").classList.add("active")
+    document.getElementById("move").classList.add("btn-outline-secondary")
+    document.getElementById("move").classList.remove("btn-success")
 }

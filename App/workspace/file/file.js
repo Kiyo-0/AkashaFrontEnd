@@ -1,25 +1,74 @@
 let layout = document.getElementById("layout")
 layout.addEventListener("mousedown",handleMouseDown)
+layout.addEventListener("mouseup",handleMouseUp)
+layout.addEventListener("mousemove",handleMouseMove)
 
 let startX,startY
 
+function handleClick(){
+    getAttribues(this)
+}
+
+function handleDivMouseup(){
+    document.getElementById("move").classList.remove("active")
+}
+
+function handleDivMouseDown(event){
+    document.getElementById("move").classList.add("active")
+    this.addEventListener("mouseup",handleDivMouseup)
+}
+
 function handleMouseUp(event){
-    function drawSquare(){
+    if(document.getElementById("move").classList.contains("active")){
+        document.getElementById("move").classList.remove("active")
+    }
+
+    function drawSquare(event){
         let div = document.createElement("div")
 
-        div.style.width = Math.abs(event.clientX - startX) + "px"
-        div.style.height = Math.abs(event.clientY - startY) + "px"
-        div.style.border = "2px solid black"
-        div.addEventListener("click",() => {console.log("Hi")})
+        let width = Math.abs(event.clientX - startX)
+        if(width < 100){
+            div.style.width = 100 + "px"
+        }else{
+            div.style.width = width + "px"
+        }
+
+        let height = Math.abs(event.clientY - startY)
+        if(height < 100){
+            div.style.height = 100 + "px"
+        }else{
+            div.style.height = height + "px"
+        }
+
+        div.style.borderSize = 2
+        div.style.borderColor = "black"
+        div.style.borderStyle = "solid"
+        div.style.borderRadius = 0
+        div.style.backgroundColor = "transparent"
         div.style.position = "absolute"
+        div.style.transition = "all 100ms linear"
 
         layout.appendChild(div)
-        div.style.top = startY + "px"
-        div.style.left = startX + "px"
+
+        if(startY > event.clientY){
+            div.style.top = event.clientY + "px"
+        }else{
+            div.style.top = startY + "px"
+        }
+
+        if(startX > event.clientX){
+            div.style.left = event.clientX + "px"
+        }else{
+            div.style.left = startX + "px"
+        }
+        return div
     }
 
     if(document.getElementById("square").classList.contains("active")){
-        drawSquare()
+        let newDiv = drawSquare(event)
+        newDiv.addEventListener("click",handleClick)
+        getAttribues(newDiv)
+        console.log("addedhandleClick")
         document.getElementById("square").classList.remove("active")
     }else if(document.getElementById("circle").classList.contains("active")){
         // drawSquare()
@@ -28,11 +77,14 @@ function handleMouseUp(event){
 }
 
 function handleMouseMove(event){
-    layout.addEventListener("mouseup",handleMouseUp)
+    if(document.getElementById("move").classList.contains("active")){
+        setX(Math.abs(event.clientX))
+        setY(Math.abs(event.clientY))
+        getAttribues(div)
+    }
 }
 
 function handleMouseDown(event){
     startX = event.clientX
     startY = event.clientY
-    layout.addEventListener("mousemove",handleMouseMove)
 }
