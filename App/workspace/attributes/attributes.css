@@ -30,6 +30,20 @@ input[type = "text"]{
     text-align: start;
 }
 
+#type{
+    background: transparent;
+    outline: none;
+    border: 1px solid gray;
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.dropdown-item:hover{
+    background: #198754;
+}
+
 span{
-    padding: 20px;
+    padding: 5px;
 }

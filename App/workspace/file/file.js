@@ -40,7 +40,7 @@ function handleMouseUp(event){
             div.style.height = height + "px"
         }
 
-        div.style.borderSize = 2
+        div.style.borderWidth = "2px"
         div.style.borderColor = "black"
         div.style.borderStyle = "solid"
         div.style.borderRadius = 0
@@ -68,7 +68,9 @@ function handleMouseUp(event){
         let newDiv = drawSquare(event)
         newDiv.addEventListener("click",handleClick)
         getAttribues(newDiv)
-        console.log("addedhandleClick")
+        newDiv.addEventListener("mousedown",show)
+        newDiv.addEventListener("mouseup",hide)
+        newDiv.setAttribute("type","div")
         document.getElementById("square").classList.remove("active")
     }else if(document.getElementById("circle").classList.contains("active")){
         // drawSquare()
@@ -87,4 +89,14 @@ function handleMouseMove(event){
 function handleMouseDown(event){
     startX = event.clientX
     startY = event.clientY
+}
+
+function show(){
+    document.getElementById(this.id + "Input").style.background = "skyblue"
+    document.getElementById(this.id + "Input").style.color = "black"
+}
+
+function hide(){
+    document.getElementById(this.id + "Input").style.background = "transparent"
+    document.getElementById(this.id + "Input").style.color = "white"
 }

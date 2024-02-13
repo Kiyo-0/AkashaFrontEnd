@@ -11,6 +11,7 @@ var fileTab = document.getElementById("FilesTab")
 var styleTab = document.getElementById("Stylestab")
 var componentsTab = document.getElementById("ComponentsTab")
 var utilityTab = document.getElementById("UtilityTab")
+var tree = document.getElementById("tree")
 
 window.onresize = () => {
     if(window.outerWidth < 1400){
@@ -98,4 +99,22 @@ function square(){
     document.getElementById("square").classList.add("active")
     document.getElementById("move").classList.add("btn-outline-secondary")
     document.getElementById("move").classList.remove("btn-success")
+}
+
+
+function writeToBar(d){
+    let div = document.createElement("div")
+    div.style.margin = "2px"
+    div.style.padding = "2px"
+    div.style.fontSize = "1rem"
+    div.style.fontWeight = "bold"
+    div.style.transition = "all 500ms 100ms linear"
+
+    function edit(){
+        this.setAttribute("contenteditable",'true')
+    }
+
+    div.addEventListener("dblclick",edit)
+    div.innerHTML = `<div id = '${d.id}Input' class = 'p-2 m-1'>${d.id}</div>`
+    tree.appendChild(div)
 }

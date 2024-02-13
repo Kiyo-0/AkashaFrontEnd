@@ -1,14 +1,28 @@
 <div id="physical" class="">
-    <span class=" text-light">X</span> <input type="number" onchange="div.style.left = this.value + 'px'" id = "x" class="">
-    <span class=" text-light">Y</span> <input type="number" onchange="div.style.top = this.value + 'px'" id = "y" class="">
+    <span class=" text-light">X</span> <input type="number" onchange="div.style.left = this.value + 'px'" id = "x" class=""> <span>px</span>
+    <span class=" text-light">Y</span> <input type="number" onchange="div.style.top = this.value + 'px'" id = "y" class=""> <span>px</span>
     <button id="move" class=" btn btn-outline-secondary" onclick="changeToMove()">M</button><br>
-    <span class=" text-light">W</span> <input type="number" onchange="div.style.width = this.value + 'px'" id = "width" class="">
-    <span class=" text-light">H</span> <input type="number" onchange="div.style.height = this.value  + 'px'" id = "height" class=""> <br>
-    <span class=" text-light">BS</span> <input type="number" onchange="div.style.borderSize = this.value  + 'px'" id = "borderSize" class="">
-    <span class=" text-light">BR</span> <input type="number" onchange="div.style.borderRadius = this.value  + 'px'" id = "borderRadius" class=""> <br>
+    <span class=" text-light">W</span> <input type="number" onchange="div.style.width = this.value + 'px'" id = "width" class=""> <span>px</span>
+    <span class=" text-light">H</span> <input type="number" onchange="div.style.height = this.value  + 'px'" id = "height" class=""> <span>px</span> <br>
+    <span class=" text-light">BS</span> <input type="number" onchange="div.style.borderWidth = this.value + 'px'" id = "borderWidth" class=""> <span>px</span>
+    <span class=" text-light">BR</span> <input type="number" onchange="div.style.borderRadius = this.value  + '%'" id = "borderRadius" class=""> <span>%</span> <br>
     <span class=" text-light">BC</span> <input type="text" onchange="div.style.borderColor = this.value" id = "borderColor" class=""> <br>
-    <span class=" text-light">FC</span> <input type="text" onchange="div.style.backgroundColor = this.value" id = "backgroundColor" class=""> <br>
+    <span class=" text-light">BG</span> <input type="text" onchange="div.style.backgroundColor = this.value" id = "backgroundColor" class=""> <br>
+    <div class=" dropstart"><a href="#" id="type" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Type</a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Form</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Button</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Input</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">CheckBox</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Radio</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Text Area</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">SVG</button></li>
+            <li><button href="#" class="dropdown-item" onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText">Image</button></li>
+        </ul>
+    </div>
 
-    <button class="btn btn-secondary" onclick="copy()"><img src="/Refrences/copy.svg" class="fileicon" alt=""><span>HTML</span></button>
-    <img id="done" src="/Refrences/done.svg"  class="d-none fileicon" alt="">
+    <button class="btn btn-secondary" onclick="copyHTML()"><img src="/Refrences/copy.svg" class="fileicon" alt=""><span>HTML</span></button>
+    <img id="doneHTML" src="/Refrences/done.svg"  class="d-none fileicon" alt="">
+    <button class="btn btn-secondary" onclick="copyCSS()"><img src="/Refrences/copy.svg" class="fileicon" alt=""><span>CSS</span></button>
+    <img id="doneCSS" src="/Refrences/done.svg"  class="d-none fileicon" alt="">
 </div>
