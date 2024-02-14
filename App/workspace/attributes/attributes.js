@@ -16,7 +16,6 @@ function getAttribues(d){
         divs.push(div)
         div.id = "div" + divs.length
         writeToBar(div)
-        document.getElementById("type").innerText = "div"
     }
 }
 

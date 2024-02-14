@@ -10,7 +10,7 @@
 }
 
 #items,#attr,#file{
-    height: 90vh !important;
+    height: 100vh !important;
 }
 
 .fileicon{
@@ -19,7 +19,7 @@
 }
 
 #Files,#styles,#components,#utility{
-    height: 70vh;
+    height: 80vh;
 }
 
 li{

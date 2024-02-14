@@ -1,4 +1,3 @@
-var removed = []
 var filesLink = document.getElementById("fileslink")
 var stylesLink = document.getElementById("styleslink")
 var componentsLink = document.getElementById("componentslink")
@@ -12,6 +11,167 @@ var styleTab = document.getElementById("Stylestab")
 var componentsTab = document.getElementById("ComponentsTab")
 var utilityTab = document.getElementById("UtilityTab")
 var tree = document.getElementById("tree")
+
+var bgStyles = [
+    "bg-primary",
+    "bg-secondary",
+    "bg-success",
+    "bg-info",
+    "bg-warning",
+    "bg-danger",
+    "bg-light",
+    "bg-dark",
+    "bg-transparent",
+]
+
+var textColorStyles = [
+    "text-secondary",
+    "text-success",
+    "text-info",
+    "text-warning",
+    "text-danger",
+    "text-light",
+    "text-dark",
+    "text-muted"
+]
+
+var textBgColorStyles = [
+    "text-bg-primary",
+    "text-bg-secondary",
+    "text-bg-success",
+    "text-bg-info",
+    "text-bg-warning",
+    "text-bg-danger",
+    "text-bg-light",
+    "text-bg-dark",
+    "text-light",
+    "text-white",
+    "text-black"
+]
+
+var textAlignStyles = [
+    "text-center",
+    "text-start",
+    "text-end"
+]
+
+var textTrasnformStyles = [
+    "text-capitalize",
+    "text-uppercase",
+    "text-lowercase",
+    "text-nowrap",
+    "font-monospace"
+]
+
+var textDecorationsStyles = [
+    "text-decoration-none",
+    "text-decoration-underline",
+    "text-decoration-line-through"
+]
+
+var fontWeightStyles = [
+    "fw-normal",
+    "fw-bold",
+    "fw-bolder",
+    "fw-light",
+    "fw-lighter",
+    "fw-medium",
+    "fw-semibold"
+]
+
+var fontStyles = [
+    "fst-normal",
+    "fst-italic"
+]
+
+var fontSizes = [
+    "fs-1",
+    "fs-2",
+    "fs-3",
+    "fs-4",
+    "fs-5",
+    "fs-6"
+]
+
+var btnNormalStyles = [
+    "btn btn-secondary",
+    "btn btn-success",
+    "btn btn-info",
+    "btn btn-warning",
+    "btn btn-danger",
+    "btn btn-light",
+    "btn btn-dark"
+]
+
+var btnOutlineStyles = [
+    "btn btn-outline-secondary",
+    "btn btn-outline-success",
+    "btn btn-outline-info",
+    "btn btn-outline-warning",
+    "btn btn-outline-danger",
+    "btn btn-outline-light",
+    "btn btn-outline-dark"
+]
+
+var styles = {
+    "Background" : bgStyles,
+    "Text BgColor Styles" : textBgColorStyles,
+    "Text Color Styles" : textColorStyles,
+    "Text Align Styles" : textAlignStyles,
+    "Text Trasnform Style" : textTrasnformStyles,
+    "Text Decorations Styles" : textDecorationsStyles,
+    "Font Styles" : fontStyles,
+    "Font Weight Styles" : fontWeightStyles,
+    "Font Sizes" : fontSizes,
+    "Button Normal" : btnNormalStyles,
+    "Button outlined" : btnOutlineStyles
+}
+
+function changeClass(b){
+    let isButton = false
+    let find = (attr) => {
+        for (let list in styles) {
+            let styleList = styles[list]
+            for(let el in styleList){
+                if(styleList == btnNormalStyles || styleList == btnOutlineStyles){
+                    isButton = true
+                }
+
+                if(styleList[el] === attr){
+                    return styleList
+                }
+            }
+        }
+    }
+
+    let styleList = find(b.classList[0])
+    for(let i in styleList){
+        if(div.classList.contains(styleList[i])){
+            div.classList.remove(styleList[i])
+        }
+    }
+
+    if(isButton){
+        console.log("hi")
+        div.classList.add(b.classList[0])
+        div.classList.add(b.classList[1])
+    }else{
+        div.classList.add(b.classList[0])
+    }
+}
+
+for(let i in styles){
+    let div = document.createElement("div")
+    div.classList.add("dropend")
+    div.innerHTML = `<img src="/Refrences/Stylesicon.svg" class = "fileicon me-2" alt=""> <button class=" btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">${i}</button><ul id = "${i}" class="dropdown-menu dropdown-menu bg-dark-subtle"></ul>`;
+    document.getElementById("styles").appendChild(div)
+    let html = "";
+    for(let j = 0;j < styles[i].length;j++){
+        html += `<li class = "dropdown-item"><button class="${styles[i][j]}" onclick="changeClass(this)">${styles[i][j].split("-")[styles[i][j].split("-").length - 1]}</button></li>`
+    }
+    document.getElementById(`${i}`).innerHTML = html
+}
+
 
 window.onresize = () => {
     if(window.outerWidth < 1400){
@@ -115,6 +275,6 @@ function writeToBar(d){
     }
 
     div.addEventListener("dblclick",edit)
-    div.innerHTML = `<div id = '${d.id}Input' class = 'p-2 m-1'>${d.id}</div>`
+    div.innerHTML = `<div id = '${d.id}Input' class = ''>${d.id}</div>`
     tree.appendChild(div)
 }
