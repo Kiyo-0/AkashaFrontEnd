@@ -4,7 +4,7 @@
         <li class="nav-item"><a href="#Stylestab" class="nav-link text-success active" data-bs-toggle="tab" id = "styleslink">Styles</a></li>
         <li class="nav-item"><a href="#ComponentsTab" class="nav-link text-success" data-bs-toggle="tab" id = "componentslink">Components</a></li>
         <li class="nav-item"><a href="#UtilityTab" class="nav-link text-success" data-bs-toggle="tab" id = "utilitylink">Utilty</a></li>
-        <li><button class="btn" id="arrow" onclick="changeBar()"><img id = "arrowsvg" src="/Refrences/leftarrow.svg" class="fileicon" alt=""></button></li>
+        <!-- <li><button class="btn" id="arrow" onclick="changeBar()"><img id = "arrowsvg" src="/Refrences/leftarrow.svg" class="fileicon" alt=""></button></li> -->
     </ul>
 </div>
 
@@ -21,8 +21,13 @@
 
 <div class="tab-content text-light">
     <div class="tab-pane active" id="Stylestab">
-        <div id="styles" class="list-group list-group-flush">
-        
+        <div id="styles" class="dropend">
+            <img src="/Refrences/Stylesicon.svg" class = "fileicon me-2" alt="">
+            <button class=" btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">Cutom Styles</button>
+            <button id="createStyleButton" class="btn btn-outline-success mt-1" onclick="createStyle()">+</button>
+            <ul id = "userStyles" class="dropdown-menu dropdown-menu bg-dark-subtle">
+                <span class="p-2">No Cutom Styles</span>
+            </ul>
         </div>
     </div>
 </div>

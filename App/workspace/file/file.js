@@ -2,8 +2,8 @@ let layout = document.getElementById("layout")
 layout.addEventListener("mousedown",handleMouseDown)
 layout.addEventListener("mouseup",handleMouseUp)
 layout.addEventListener("mousemove",handleMouseMove)
-
-let startX,startY
+var sidebarWidth = document.getElementById("sidebar").style.width.replace("px","")
+let startX,startY,mousedownX,mousedownY
 
 function handleClick(){
     getAttribues(this)
@@ -26,14 +26,14 @@ function handleMouseUp(event){
     function drawSquare(event){
         let div = document.createElement("div")
 
-        let width = Math.abs(event.clientX - startX)
+        let width = Math.abs(event.clientX - mousedownX)
         if(width < 100){
             div.style.width = 100 + "px"
         }else{
             div.style.width = width + "px"
         }
 
-        let height = Math.abs(event.clientY - startY)
+        let height = Math.abs(event.clientY - mousedownY)
         if(height < 100){
             div.style.height = 100 + "px"
         }else{
@@ -44,24 +44,29 @@ function handleMouseUp(event){
         div.style.borderColor = "black"
         div.style.borderStyle = "solid"
         div.style.borderRadius = 0
+        div.style.position = "fixed"
         div.style.backgroundColor = "transparent"
-        div.style.position = "absolute"
         div.style.transition = "all 100ms linear"
 
         layout.appendChild(div)
 
         if(startY > event.clientY){
-            div.style.top = event.clientY + "px"
+            div.style.marginTop = event.clientY + "px"
         }else{
-            div.style.top = startY + "px"
+            div.style.marginTop = startY + "px"
         }
 
         if(startX > event.clientX){
-            div.style.left = event.clientX + "px"
+            div.style.marginLeft = event.clientX + "px"
         }else{
-            div.style.left = startX + "px"
+            div.style.marginLeft = startX + "px"
         }
         return div
+    }
+
+
+    function drawCircle(event){
+
     }
 
     if(document.getElementById("square").classList.contains("active")){
@@ -73,7 +78,7 @@ function handleMouseUp(event){
         newDiv.setAttribute("type","div")
         document.getElementById("square").classList.remove("active")
     }else if(document.getElementById("circle").classList.contains("active")){
-        // drawSquare()
+        drawCircle(event)
         document.getElementById("circle").classList.remove("active")
     }
 }
@@ -87,7 +92,9 @@ function handleMouseMove(event){
 }
 
 function handleMouseDown(event){
-    startX = event.clientX
+    mousedownX = event.clientX
+    startX = event.clientX - Number(sidebarWidth)
+    mousedownY = event.clientY
     startY = event.clientY
 }
 

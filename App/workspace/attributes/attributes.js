@@ -3,8 +3,8 @@ let div
 
 function getAttribues(d){
     div = d
-    document.getElementById("x").value = d.style.left.replace("px","")
-    document.getElementById("y").value = d.style.top.replace("px","")
+    document.getElementById("x").value = d.style.marginLeft.replace("px","")
+    document.getElementById("y").value = d.style.marginTop.replace("px","")
     document.getElementById("width").value = d.style.width.replace("px","")
     document.getElementById("height").value = d.style.height.replace("px","")
     document.getElementById("borderWidth").value = d.style.borderWidth.replace("px","")
@@ -47,11 +47,11 @@ function setheight(height){
 }
 
 function setX(x){
-    div.style.left = x + "px"
+    div.style.marginLeft = (x - sidebarWidth) + "px"
 }
 
 function setY(y){
-    div.style.top = y + "px"
+    div.style.marginTop = y + "px"
 }
 
 

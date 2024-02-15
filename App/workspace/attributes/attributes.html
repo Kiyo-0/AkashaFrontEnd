@@ -1,6 +1,6 @@
 <div id="physical" class="">
-    <span class=" text-light">X</span> <input type="number" onchange="div.style.left = this.value + 'px'" id = "x" class=""> <span>px</span>
-    <span class=" text-light">Y</span> <input type="number" onchange="div.style.top = this.value + 'px'" id = "y" class=""> <span>px</span>
+    <span class=" text-light">ML</span> <input type="number" onchange="div.style.marginLeft = this.value + 'px'" id = "x" class=""> <span>px</span>
+    <span class=" text-light">MT</span> <input type="number" onchange="div.style.marginTop = this.value + 'px'" id = "y" class=""> <span>px</span>
     <button id="move" class=" btn btn-outline-secondary" onclick="changeToMove()">M</button><br>
     <span class=" text-light">W</span> <input type="number" onchange="div.style.width = this.value + 'px'" id = "width" class=""> <span>px</span>
     <span class=" text-light">H</span> <input type="number" onchange="div.style.height = this.value  + 'px'" id = "height" class=""> <span>px</span> <br>
@@ -8,7 +8,7 @@
     <span class=" text-light">BR</span> <input type="number" onchange="div.style.borderRadius = this.value  + '%'" id = "borderRadius" class=""> <span>%</span> <br>
     <span class=" text-light">BC</span> <input type="text" onchange="div.style.borderColor = this.value" id = "borderColor" class=""> <br>
     <span class=" text-light">BG</span> <input type="text" onchange="div.style.backgroundColor = this.value" id = "backgroundColor" class=""> <br>
-    <div class=" dropstart"><button class=" btn btn-dark dropdown-toggle p-2" data-bs-toggle="dropdown">Type</button>
+    <div class=" dropstart"><button id="type" class=" btn btn-dark dropdown-toggle p-2" data-bs-toggle="dropdown">Type</button>
         <ul class="dropdown-menu dropdown-menu-dark">
             <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Form</button></li>
             <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Button</button></li>

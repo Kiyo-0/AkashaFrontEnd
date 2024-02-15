@@ -3,6 +3,6 @@
         "editor.defaultFormatter": "Jota0222.multi-formatter"
     },
     "[javascript]": {
-        "editor.defaultFormatter": null
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     }
 }
