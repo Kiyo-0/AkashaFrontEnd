@@ -1,109 +1,158 @@
 let layout = document.getElementById("layout")
 layout.addEventListener("mousedown",handleMouseDown)
 layout.addEventListener("mouseup",handleMouseUp)
-layout.addEventListener("mousemove",handleMouseMove)
 var sidebarWidth = document.getElementById("sidebar").style.width.replace("px","")
 let startX,startY,mousedownX,mousedownY
 
+var div
+var divCount = 0
+
 function handleClick(){
-    getAttribues(this)
+    div = this
+    getAttribues(div)
 }
 
 function handleDivMouseup(){
-    document.getElementById("move").classList.remove("active")
+    layout.removeEventListener("mousemove",handleMouseMove)
 }
 
-function handleDivMouseDown(event){
-    document.getElementById("move").classList.add("active")
+function handleDivMouseDown(){
+    layout.addEventListener("mousemove",handleMouseMove)
     this.addEventListener("mouseup",handleDivMouseup)
 }
 
 function handleMouseUp(event){
     if(document.getElementById("move").classList.contains("active")){
         document.getElementById("move").classList.remove("active")
-    }
-
-    function drawSquare(event){
-        let div = document.createElement("div")
-
-        let width = Math.abs(event.clientX - mousedownX)
-        if(width < 100){
-            div.style.width = 100 + "px"
-        }else{
-            div.style.width = width + "px"
-        }
-
-        let height = Math.abs(event.clientY - mousedownY)
-        if(height < 100){
-            div.style.height = 100 + "px"
-        }else{
-            div.style.height = height + "px"
-        }
-
-        div.style.borderWidth = "2px"
-        div.style.borderColor = "black"
-        div.style.borderStyle = "solid"
-        div.style.borderRadius = 0
-        div.style.position = "fixed"
-        div.style.backgroundColor = "transparent"
-        div.style.transition = "all 100ms linear"
-
-        layout.appendChild(div)
-
-        if(startY > event.clientY){
-            div.style.marginTop = event.clientY + "px"
-        }else{
-            div.style.marginTop = startY + "px"
-        }
-
-        if(startX > event.clientX){
-            div.style.marginLeft = event.clientX + "px"
-        }else{
-            div.style.marginLeft = startX + "px"
-        }
-        return div
-    }
-
-
-    function drawCircle(event){
-
-    }
-
-    if(document.getElementById("square").classList.contains("active")){
-        let newDiv = drawSquare(event)
-        newDiv.addEventListener("click",handleClick)
-        getAttribues(newDiv)
-        newDiv.addEventListener("mousedown",show)
-        newDiv.addEventListener("mouseup",hide)
-        newDiv.setAttribute("type","div")
+    }else if(document.getElementById("square").classList.contains("active")){
         document.getElementById("square").classList.remove("active")
     }else if(document.getElementById("circle").classList.contains("active")){
-        drawCircle(event)
         document.getElementById("circle").classList.remove("active")
     }
+    layout.removeEventListener("mousemove",handleMouseMove)
 }
 
 function handleMouseMove(event){
     if(document.getElementById("move").classList.contains("active")){
-        setX(Math.abs(event.clientX))
-        setY(Math.abs(event.clientY))
-        getAttribues(div)
+        if(div != undefined && div != null){
+            setX(div,Math.abs(event.clientX))
+            setY(div,Math.abs(event.clientY))
+            getAttribues(div)
+        }else{
+            console.error("Undefined")
+        }
+    }else if(document.getElementById("square").classList.contains("active")){
+        if(div !== undefined){
+            setWidth(div,Math.abs(event.clientX - mousedownX))
+            setheight(div,Math.abs(event.clientY - mousedownY))
+            getAttribues(div)
+        }else{
+            console.error("Undefined")
+        }
+    }else if(document.getElementById("circle").classList.contains("active")){
+        if(div !== undefined){
+            setWidth(div,Math.abs(event.clientX - mousedownX))
+            setheight(div,Math.abs(event.clientY - mousedownY))
+            getAttribues(div)
+        }else{
+            console.error("Undefined")
+        }
     }
 }
 
+function getAttribues(div){
+    document.getElementById("margin-left").value = divs[div.id]["styles"]["margin-left"].replace("px","")
+    document.getElementById("margin-top").value = divs[div.id]["styles"]["margin-top"].replace("px","")
+    document.getElementById("width").value = divs[div.id]["styles"]["width"].replace("px","")
+    document.getElementById("height").value = divs[div.id]["styles"]["height"].replace("px","")
+    document.getElementById("border-width").value = divs[div.id]["styles"]["border-width"].replace("px","")
+    document.getElementById("border-radius").value = divs[div.id]["styles"]["border-radius"].replace("%","")
+    document.getElementById("border-color").value = divs[div.id]["styles"]["border-color"]
+    document.getElementById("background").value = divs[div.id]["styles"]["background"]
+}
+
+function setWidth(div,width){
+    let divStyles = divs[div.id]["styles"]
+    divStyles["width"] = `${width}px`;
+    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`
+}
+
+function setheight(div,height){
+    let divStyles = divs[div.id]["styles"]
+    divStyles["height"] = `${height}px`;
+    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`
+}
+
+function setX(div,x){
+    let divStyles = divs[div.id]["styles"]
+    divStyles["margin-left"] = `${(x - sidebarWidth)}px`;
+    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`
+}
+
+function setY(div,y){
+    let divStyles = divs[div.id]["styles"]
+    divStyles["margin-top"] = `${(y)}px`;
+    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`
+}
+
 function handleMouseDown(event){
-    mousedownX = event.clientX
-    startX = event.clientX - Number(sidebarWidth)
-    mousedownY = event.clientY
-    startY = event.clientY
+    if(document.getElementById("square").classList.contains("active")){
+        mousedownX = event.clientX
+        startX = event.clientX - Number(sidebarWidth)
+        mousedownY = event.clientY
+        startY = event.clientY
+
+        div = document.createElement("div")
+        div.onclick = handleClick
+        layout.appendChild(div)
+        divCount += 1
+        div.id = `div${divCount}`
+
+        divs[div.id] = {
+            "element" : div,
+            "classList" : [],
+            "styles" : {
+                "position" : "fixed",
+                "width" : "0px",
+                "height" : "0px",
+                "margin-left" : `${startX}px`,
+                "margin-top" : `${event.clientY}px`,
+                "border-width" : "2px",
+                "border-color" : "black",
+                "border-style" : "solid",
+                "border-radius" : "0%",
+                "background" : "transparent"
+            }
+        }
+
+        let newStyleElement = document.createElement("style")
+        newStyleElement.setAttribute("id",`${div.id}Styles`)
+
+        newStyleElement.innerHTML = `#${div.id}${createCss(div)}`
+        document.head.appendChild(newStyleElement)
+        writeToBar(div)
+
+        layout.addEventListener("mousemove",handleMouseMove)
+    }
+
+    if(document.getElementById("move").classList.contains("active")){
+        layout.addEventListener("mousemove",handleMouseMove)
+    }
 }
 
-function show(){
-    document.getElementById(this.id + "Input").style.background = "skyblue"
-    document.getElementById(this.id + "Input").style.color = "black"
+
+function changeValue(button){
+    divs[div.id]["styles"][button.id] = button.value
+    document.getElementById(`${div.id}Styles`).innerHTML = createCss(divs[div.id]["styles"])
 }
 
-function hide(){
-    document.getElementById(this.id + "Input").style.background = "transparent"
-    document.getElementById(this.id + "Input").style.color = "white"
+function createCss(div){
+    let css =  `{\n`
+    let cssStyles = divs[div.id]["styles"]
+
+    for(let style in cssStyles){
+        css += `\t${style} : ${cssStyles[style]};\n`
+    }
+    css += `}\n`
+    return css
 }

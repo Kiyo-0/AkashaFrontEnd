@@ -1,59 +1,12 @@
-let divs = []
-let div
+let divs = {}
 
-function getAttribues(d){
-    div = d
-    document.getElementById("x").value = d.style.marginLeft.replace("px","")
-    document.getElementById("y").value = d.style.marginTop.replace("px","")
-    document.getElementById("width").value = d.style.width.replace("px","")
-    document.getElementById("height").value = d.style.height.replace("px","")
-    document.getElementById("borderWidth").value = d.style.borderWidth.replace("px","")
-    document.getElementById("borderRadius").value = d.style.borderRadius.replace("px","")
-    document.getElementById("borderColor").value = d.style.borderColor
-    document.getElementById("backgroundColor").value = d.style.backgroundColor
-
-    if(divs.indexOf(div) == -1){
-        divs.push(div)
-        div.id = "div" + divs.length
-        writeToBar(div)
-    }
-}
-
-function changeToMove(){
-    let b = document.getElementById("move")
-    if(b.classList.contains("btn-outline-secondary")){
-        b.classList.remove("btn-outline-secondary")
-        b.classList.add("btn-success")
-
-        for(let i in divs){
-            divs[i].addEventListener('mousedown',handleDivMouseDown)
-        }
+function changeToMove(button){
+    if(button.classList.contains("active")){
+        button.classList.remove("active")
     }else{
-        b.classList.add("btn-outline-secondary")
-        b.classList.remove("btn-success")
-
-        for(let i in divs){
-            divs[i].removeEventListener('mousedown',handleDivMouseDown)
-        }
+        button.classList.add("active")
     }
 }
-
-function setWidth(width){
-    div.style.width = width
-}
-
-function setheight(height){
-    div.style.height = height
-}
-
-function setX(x){
-    div.style.marginLeft = (x - sidebarWidth) + "px"
-}
-
-function setY(y){
-    div.style.marginTop = y + "px"
-}
-
 
 function copyHTML() {
     navigator.clipboard.writeText(document.getElementById("layout").innerHTML);
@@ -64,15 +17,9 @@ function copyCSS() {
     function extractStyles() {
         let css = "";
 
-        divs.forEach((element) => {
-            const style = element.style
-            let cssText = `#${element.id}{\n`;
-            for (let i = 0; i < style.length; i++) {
-                cssText += `\t ${style[i]} : ${style[style[i]]};\n`;
-            }
-            cssText += "}"
-            css += cssText + "\n"
-        })
+        for(let id in divs){
+            css += document.getElementById(`${id}Styles`).innerHTML
+        }
 
         return css;
     }

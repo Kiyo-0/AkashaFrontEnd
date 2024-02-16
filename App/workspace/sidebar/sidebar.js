@@ -12,26 +12,6 @@ var componentsTab = document.getElementById("ComponentsTab")
 var utilityTab = document.getElementById("UtilityTab")
 var tree = document.getElementById("tree")
 
-var styles = {}
-
-fetch("/Refrences/builtInStyles.json")
-    .then(response => response.text())
-    .then(data => {
-        styles = JSON.parse(data)
-        for (let i in styles) {
-            let div = document.createElement("div")
-            div.classList.add("dropend")
-            div.innerHTML = `<img src="/Refrences/Stylesicon.svg" class = "fileicon me-2" alt=""> <button class=" btn btn-dark dropdown-toggle" data-bs-toggle="dropdown">${i}</button><ul id = "${i}" class="dropdown-menu dropdown-menu bg-dark-subtle"></ul>`;
-            document.getElementById("styles").appendChild(div)
-            let html = "";
-            for (let j = 0; j < styles[i].length; j++) {
-                html += `<li class = "dropdown-item"><button class="${styles[i][j]}" onclick="changeClass(this)">${styles[i][j].split("-")[styles[i][j].split("-").length - 1]}</button></li>`
-            }
-            document.getElementById(`${i}`).innerHTML = html
-        }
-    })
-.catch(error => console.error('Error loading JSON file:', error));
-
 function changeClass(b) {
     let isButton = false
 
@@ -127,7 +107,6 @@ function square() {
     document.getElementById("move").classList.add("btn-outline-secondary")
     document.getElementById("move").classList.remove("btn-success")
 }
-
 
 function writeToBar(d) {
     let div = document.createElement("div")
