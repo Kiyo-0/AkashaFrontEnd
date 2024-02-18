@@ -1,23 +1,24 @@
 <div id="physical" class="">
-    <span class=" text-light">ML</span> <input onchange="changeValue(this)" id = "margin-left" type="number"> <span>px</span>
-    <span class=" text-light">MT</span> <input onchange="changeValue(this)" id = "margin-top"  type="number"> <span>px</span>
-    <button id="move" class=" btn btn-outline-success" onclick="changeToMove(this)">M</button><br>
-    <span class=" text-light">W</span>  <input onchange="changeValue(this)" id = "width" type="number"> <span>px</span>
-    <span class=" text-light">H</span>  <input onchange="changeValue(this)" id = "height" type="number"> <span>px</span> <br>
-    <span class=" text-light">BS</span> <input onchange="changeValue(this)" id = "border-width" type="number"> <span>px</span>
-    <span class=" text-light">BR</span> <input onchange="changeValue(this)" id = "border-radius" type="number"> <span>%</span> <br>
-    <span class=" text-light">BC</span> <input onchange="changeValue(this)" id = "border-color" type="text"> <br>
-    <span class=" text-light">BG</span> <input onchange="changeValue(this)" id = "background"   type="text"> <br>
-    <div class=" dropstart"><button id="type" class=" btn btn-dark dropdown-toggle p-2" data-bs-toggle="dropdown">Type</button>
-        <ul class="dropdown-menu dropdown-menu-dark">
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Form</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Button</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Input</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">CheckBox</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Radio</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Text Area</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">SVG</button></li>
-            <li class="dropdown-item" ><button onclick="document.getElementById('type').innerText = this.innerText,div.type = this.innerText" class=" btn btn-dark">Image</button></li>
+    <span class=" text-light">ML</span> <input onchange="changeValue(this.id,`${this.value}px`)" id = "margin-left" type="number"> <span>px</span>
+    <span class=" text-light">MT</span> <input onchange="changeValue(this.id,`${this.value}px`)" id = "margin-top"  type="number"> <span>px</span>
+    <button id="move" class=" btn btn-outline-success" onclick="this.classList.toggle('active')">M</button><br>
+    <span class=" text-light">W</span>  <input onchange="changeValue(this.id,`${this.value}px`)" id = "width" type="number"> <span>px</span>
+    <span class=" text-light">H</span>  <input onchange="changeValue(this.id,`${this.value}px`)" id = "height" type="number"> <span>px</span> <br>
+    <span class=" text-light">BS</span> <input onchange="changeValue(this.id,`${this.value}px`)" id = "border-width" type="number"> <span>px</span>
+    <span class=" text-light">BR</span> <input onchange="changeValue(this.id,`${this.value}%`)" id = "border-radius" type="number"> <span>%</span> <br>
+    <span class=" text-light">BC</span> <input onchange="changeValue(this.id,this.value)" id = "border-color" type="text"> <br>
+    <span class=" text-light">BG</span> <input onchange="changeValue(this.id,this.value)" id = "background"   type="text"> <br>
+    <div class=" dropstart">
+        <button id="type" class=" btn btn-dark dropdown-toggle p-2" data-bs-toggle="dropdown">Element Type</button>
+        <ul class="dropdown-menu bg-dark">
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Form</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Button</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Input</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">CheckBox</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Radio</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Text Area</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">SVG</button></li>
+            <li class="dropdown-item bg-dark" ><button onclick="setType(this.innerText)" class=" btn btn-outline-success">Image</button></li>
         </ul>
     </div>
 
