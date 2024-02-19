@@ -1,7 +1,7 @@
 var userName = "Aman8740";
 
 var styles = {};
-var userStyles = {};
+var users = {};
 
 let layout = document.getElementById("layout");
 layout.addEventListener("mousedown",handleMouseDown);
@@ -25,13 +25,54 @@ function handleDivMouseup(){
 }
 
 function handleDivMouseDown(){;
-    layout.addEventListener("mousemove",handleMouseMove);
-    this.addEventListener("mouseup",handleDivMouseup);
+    if(document.getElementById("move").classList.contains("active")){
+        layout.addEventListener("mousemove",handleMouseMove);
+        this.addEventListener("mouseup",handleDivMouseup);
+    }else if(document.getElementById("square").classList.contains("active") || document.getElementById("circle").classList.contains("active") || document.getElementById("textbox").classList.contains("active")){
+        // pass Now
+    }
+}
+
+function setForInline(x,y){
+    let nearX = 0,nearY = 0;
+    let oldEl = undefined;
+    for (const i in divs) {
+        if (Object.hasOwnProperty.call(divs, i)) {
+            const area = divs[i]["area"];
+
+            if(y >= area["onY"][0] && y <= area["onY"][1]){
+                if(area["onX"][1] > nearX){
+                    oldEl = divs[i];
+                    nearX = area["onX"][1];
+                }
+            }else if(x >= area["onX"][0] && x <= area["onX"][1]){
+                if(area["onY"][1] > nearY){
+                    oldEl = divs[i];
+                    nearY = area["onY"][1];
+                }
+            }
+        }
+    }
+
+    if(oldEl != undefined){
+        setPropertyValue(div,"display","inline");
+    }
+
+    if(nearX != 0){
+        setPropertyValue(div,"margin-left",`${Math.abs(startX - nearX)}px`);
+    }
+
+    if(nearY != 0){
+        setPropertyValue(div,"margin-top",`${Math.abs(startY - nearY)}px`);
+    }
 }
 
 function handleMouseUp(event){
     if(document.getElementById("square").classList.contains("active")){
         document.getElementById("square").classList.remove("active");
+
+        divs[div.id]["area"]["onX"].push(startX + Number(getPropertyValue(div,"width").replace("px","")));
+        divs[div.id]["area"]["onY"].push(startY + Number(getPropertyValue(div,"height").replace("px","")));
     }else if(document.getElementById("circle").classList.contains("active")){
         document.getElementById("circle").classList.remove("active");
     }else if(document.getElementById("textbox").classList.contains("active")){
@@ -41,70 +82,33 @@ function handleMouseUp(event){
 }
 
 function handleMouseMove(event){
-    if(document.getElementById("move").classList.contains("active")){
-        if(div != undefined && div != null){
-            setX(div,Math.abs(event.clientX));
-            setY(div,Math.abs(event.clientY));
-            getAttribues(div);
-        }else{
-            console.error("Undefined");
+    try {
+        if(div != undefined){
+            if(document.getElementById("move").classList.contains("active")){
+                setPropertyValue(div,"margin-left",`${(event.clientX - sidebarWidth)}px`);
+                setPropertyValue(div,"margin-top",`${(event.clientY)}px`);
+                getAttribues(div);
+            }else if(document.getElementById("square").classList.contains("active") || document.getElementById("circle").classList.contains("active") || document.getElementById("textbox").classList.contains("active")){
+                setForInline(event.clientX,event.clientY);
+                setPropertyValue(div,"width",`${Math.abs(event.clientX - mousedownX)}px`);
+                setPropertyValue(div,"height",`${Math.abs(event.clientY - mousedownY)}px`);
+                getAttribues(div);
+            }
         }
-    }else if(document.getElementById("square").classList.contains("active")){
-        if(div !== undefined){
-            setWidth(div,Math.abs(event.clientX - mousedownX));
-            setheight(div,Math.abs(event.clientY - mousedownY));
-            getAttribues(div);
-        }else{
-            console.error("Undefined");
-        }
-    }else if(document.getElementById("circle").classList.contains("active")){
-        if(div !== undefined){
-            setWidth(div,Math.abs(event.clientX - mousedownX));
-            setheight(div,Math.abs(event.clientY - mousedownY));
-            getAttribues(div);
-        }else{
-            console.error("Undefined");
-        }
-    }else if(document.getElementById("textbox").classList.contains("active")){
-        if(div !== undefined){
-            setWidth(div,Math.abs(event.clientX - mousedownX));
-            setheight(div,Math.abs(event.clientY - mousedownY));
-            getAttribues(div);
-        }else{
-            console.error("Undefined");
-        }
+    } catch (error) {
+        console.log(error);
     }
 }
 
 function getAttribues(div){
-    document.getElementById("margin-left").value = divs[div.id]["styles"]["margin-left"].replace("px","");
-    document.getElementById("margin-top").value = divs[div.id]["styles"]["margin-top"].replace("px","");
-    document.getElementById("width").value = divs[div.id]["styles"]["width"].replace("px","");
-    document.getElementById("height").value = divs[div.id]["styles"]["height"].replace("px","");
-    document.getElementById("border-width").value = divs[div.id]["styles"]["border-width"].replace("px","");
-    document.getElementById("border-radius").value = divs[div.id]["styles"]["border-radius"].replace("%","");
-    document.getElementById("border-color").value = divs[div.id]["styles"]["border-color"];
-    document.getElementById("background").value = divs[div.id]["styles"]["background"];
-}
-
-function setWidth(div,width){
-    changeValue("width",`${width}px`);
-    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`;
-}
-
-function setheight(div,height){
-    changeValue("height",`${height}px`);
-    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`;
-}
-
-function setX(div,x){
-    changeValue("margin-left",`${(x - sidebarWidth)}px`);
-    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`;
-}
-
-function setY(div,y){
-    changeValue("margin-top",`${(y)}px`);
-    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(div)}`;
+    document.getElementById("margin-left").value = getPropertyValue(div,"margin-left").replace("px","");
+    document.getElementById("margin-top").value = getPropertyValue(div,"margin-top").replace("px","");
+    document.getElementById("width").value = getPropertyValue(div,"width").replace("px","");
+    document.getElementById("height").value = getPropertyValue(div,"height").replace("px","");
+    document.getElementById("border-width").value = getPropertyValue(div,"border-width").replace("px","");
+    document.getElementById("border-radius").value = getPropertyValue(div,"border-radius").replace("%","");
+    document.getElementById("border-color").value = getPropertyValue(div,"border-color");
+    document.getElementById("background").value = getPropertyValue(div,"background");
 }
 
 function handleMouseDown(event){
@@ -148,8 +152,14 @@ function handleMouseDown(event){
 
         divs[div.id] = {
             "element" : div,
+
+            "area" : {
+                "onX" : [startX],
+                "onY" : [startY]
+            },
+
             "styles" : {
-                "position" : "fixed",
+                "position" : "relative",
                 "width" : "0px",
                 "height" : "0px",
                 "margin-left" : `${startX}px`,
@@ -158,9 +168,13 @@ function handleMouseDown(event){
                 "border-color" : "black",
                 "border-style" : "solid",
                 "border-radius" : isCircle ? "50%" : "0%",
-                "background" : "transparent"
+                "background" : "transparent",
+                "flex-shrink" : "0",
+                "flex-grow" : "0"
             }
         };
+
+        setForInline(startX,startY);
 
         let newStyleElement = document.createElement("style");
         newStyleElement.setAttribute("id",`${div.id}Styles`);
@@ -177,14 +191,24 @@ function handleMouseDown(event){
     }
 }
 
-function changeValue(property,newValue){
-    divs[div.id]["styles"][property] = newValue;
-    document.getElementById(`${div.id}Styles`).innerHTML = `#${div.id}${createCss(divs[div.id]["element"])}`;
+function setPropertyValue(div,property,value){
+    let old = divs[div.id]["styles"][property];
+    let styleElement = document.getElementById(`${div.id}Styles`);
+
+    divs[div.id]["styles"][property] = value;
+
+    if(styleElement != undefined){
+        styleElement.innerHTML = `#${div.id}${createCss(div)}`;
+    }
+
+    return old;
 }
+
 
 function getPropertyValue(div,property){
     return divs[div.id]["styles"][property];
 }
+
 function createCss(div){
     let css =  `{\n`;
     let cssStyles = divs[div.id]["styles"];
@@ -211,9 +235,9 @@ async function loadJSON () {
         document.getElementById(`${i}`).innerHTML = html;
     }
 
-    data = await fetch("/Refrences/userStyles.json");
-    userStyles = await data.json();
-    userStyles = userStyles[userName]["Styles"];
+    data = await fetch("/Refrences/users.json");
+    users = await data.json();
+    let userStyles = users[userName]["styles"];
     let userStylesList = document.getElementById("userStyles");
     let html = "";
     for (let i in userStyles) {

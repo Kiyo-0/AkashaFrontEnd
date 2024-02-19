@@ -123,7 +123,6 @@ function writeToBar(el) {
 
     let originalValue = div.textContent;
     let valueChanged = false;
-    let newValue = "";
 
     div.addEventListener("dblclick",() => {
         div.contentEditable = "true";
@@ -135,6 +134,7 @@ function writeToBar(el) {
             valueChanged = true;
             div.contentEditable = "false";
             el.id = div.textContent;
+            
             divs[div.textContent] = divs[originalValue];
             delete divs[originalValue];
             let originalStyles = document.getElementById(`${originalValue}Styles`);
@@ -157,5 +157,32 @@ function writeToBar(el) {
 }
 
 function createStyle() {
+    let userStyles = document.getElementById("userStyles");
+    let button = document.getElementById("createStyleButton");
+    button.classList.add("d-none");
+    let styleInput = document.getElementById("styleName");
+    styleInput.classList.remove("d-none");
 
+    styleInput.addEventListener("change",() => {
+        let newItem  = document.createElement("li");
+        let newButton = document.createElement("button");
+        newItem.classList.add("dropdown-item");
+        newButton.className = div.className;
+        newButton.textContent = styleInput.value;
+
+        newButton.addEventListener("click",() => {
+            for(let cls of newButton.className.split(" ")){
+                div.classList.add(cls);
+            }
+            console.log(div);
+        });
+        newItem.appendChild(newButton);
+        userStyles.appendChild(newItem);
+
+        styleInput.classList.add("d-none");
+        button.classList.remove("d-none");
+
+        userStyles = users[userName]["styles"];
+        userStyles[styleInput.value] = div.className;
+    });
 }
